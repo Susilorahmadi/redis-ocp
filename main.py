@@ -11,6 +11,6 @@ app = FastAPI()
 def read_root():
     # REDIS.set("test","Berhasil")
     # output = REDIS.get("test")
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',level=logging.INFO,datefmt='`%Y-%m-%d %H:%M:%S')
-    logging.info(logging.INFO)
+    log = logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',level=logging.INFO,datefmt='`%Y-%m-%d %H:%M:%S')
+    logging.info(log)
     return {"Hello": "World"}
