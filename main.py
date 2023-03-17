@@ -12,6 +12,6 @@ def read_root():
     # REDIS.set("test","Berhasil")
     # output = REDIS.get("test")
     logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',level=logging.INFO,datefmt='`%Y-%m-%d %H:%M:%S')
-    logging.INFO
+    logging.info(logging.INFO,stacklevel=logging.INFO)
     logging.BASIC_FORMAT
     return {"Hello": "World"}
