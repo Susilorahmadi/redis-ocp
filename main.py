@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 import os, redis
 import logging
+from logging.config import dictConfig
+from logging.handlers import SMTPHandler
 
 REDIS_URL  = os.getenv("REDIS_URL", "redis.openfaas-fn.svc.cluster.local")
 REDIS      = redis.Redis(host=REDIS_URL, port=6379)
@@ -17,6 +19,35 @@ def read_root():
 
 @app.get("/logging")
 def read_root():
-    logging.Handler.setFormatter(fmt='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
     
+    dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+    })
+
+    mail_handler = SMTPHandler(
+        mailhost='127.0.0.1',
+        fromaddr='server-error@example.com',
+        toaddrs=['admin@example.com'],
+        subject='Application Error'
+    )
+    mail_handler.setLevel(logging.ERROR)
+    mail_handler.setFormatter(logging.Formatter(
+        '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+    ))
+
+    if not app.debug:
+        app.logger.addHandler(mail_handler)
+
     return {"Hello": "EveryOne"}
