@@ -46,8 +46,7 @@ def read_root():
     mail_handler.setFormatter(logging.Formatter(
         '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
     ))
-
-    if not app.debug:
-        app.logger.addHandler(mail_handler)
+    
+    logging.info(mail_handler)
 
     return {"Hello": "EveryOne"}
