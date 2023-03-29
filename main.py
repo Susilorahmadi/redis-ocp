@@ -17,6 +17,6 @@ def read_root():
 
 @app.get("/logging")
 def read_root():
-    logging.Handler.setFormatter(logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s'))
+    logging.Handler.setFormatter(fmt='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
     
     return {"Hello": "EveryOne"}
