@@ -13,5 +13,10 @@ def read_root():
     # output = REDIS.get("test")
     log = logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',level=logging.INFO,datefmt='`%Y-%m-%d %H:%M:%S')
     logging.info(log)
-    logging.info(logging.getLogger)
     return {"Hello": "World"}
+
+@app.get("/logging")
+def read_root():
+    logging.Handler.setFormatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+    
+    return {"Hello": "EveryOne"}
