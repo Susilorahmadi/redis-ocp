@@ -47,8 +47,8 @@ def read_root():
         '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
     ))
     
-    logging.info("=========================")
-    logging.info(mail_handler)
-    logging.info("logging")
+    print("=========================")
+    print(mail_handler)
+    print("logging")
 
     return {"Hello": "EveryOne"}
